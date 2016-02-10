@@ -5,6 +5,7 @@ var uglify = require('gulp-uglify');
 var inject = require('gulp-inject');
 var clean = require('gulp-clean');
 var templateCache = require('gulp-angular-templatecache');
+var watch = require('gulp-watch');
 
 gulp.task('clean', function () {
   return gulp.src( [
@@ -64,5 +65,6 @@ gulp.task('build', ['inject'], function() {
 
 });
 
-
-
+gulp.task('watch', function () {
+  gulp.watch('app/**', ['build']);
+});
