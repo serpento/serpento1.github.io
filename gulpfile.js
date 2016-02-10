@@ -6,6 +6,7 @@ var inject = require('gulp-inject');
 var clean = require('gulp-clean');
 var templateCache = require('gulp-angular-templatecache');
 var watch = require('gulp-watch');
+var cssmin = require('gulp-cssmin');
 
 gulp.task('clean', function () {
   return gulp.src( [
@@ -25,7 +26,6 @@ gulp.task('templateCache', ['clean'], function () {
     .pipe(gulp.dest('dist'));
 });
 
-
 gulp.task('compile-app', ['templateCache'], function() {
   return gulp.src([
     'app/**/*.js'
@@ -35,7 +35,6 @@ gulp.task('compile-app', ['templateCache'], function() {
     .pipe(uglify())
     .pipe(gulp.dest('dist'));
 });
-
 
 gulp.task('compile-vendor', function() {
   return gulp.src([
@@ -48,12 +47,20 @@ gulp.task('compile-vendor', function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('inject', ['compile-app', 'compile-vendor'], function () {
+gulp.task('compile-css', function () {
+  gulp.src([
+    'bower_components/bootstrap/dist/css/bootstrap.css'
+  ])
+    .pipe(cssmin())
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('inject', ['compile-app', 'compile-vendor', 'compile-css'], function () {
   var target = gulp.src('app/index.html');
 
   var sources = gulp.src([
     , 'dist/**/*.js'
-    , 'bower_components/bootstrap/dist/css/bootstrap.css'
+    , 'dist/bootstrap.css'
     , 'app/**/*.css'
   ], { read: false });
 
