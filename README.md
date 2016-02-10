@@ -1,1 +1,1 @@
-# serpento.github.io
+# gp-angular-course
