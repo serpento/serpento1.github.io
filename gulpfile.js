@@ -16,10 +16,10 @@ gulp.task('clean', function () {
 
 gulp.task('concat', function() {
   return gulp.src([
-    './app/**/*.js'
-    , './bower_components/angular/angular.js'
+    './bower_components/angular/angular.js'
     , './bower_components/underscore/underscore.js'
     , './bower_components/angular-route/angular-route.js'
+    , './app/**/*.js'
   ])
     .pipe(ngAnnotate())
     .pipe(concat('main.js'))
