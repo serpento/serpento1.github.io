@@ -23,7 +23,7 @@ gulp.task('templateCache', ['clean'], function () {
       module: 'sumModule',
       root: 'partials'
     }))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('compile-app', ['templateCache'], function() {
@@ -33,7 +33,7 @@ gulp.task('compile-app', ['templateCache'], function() {
     .pipe(ngAnnotate())
     .pipe(concat('main.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('compile-vendor', function() {
@@ -44,7 +44,7 @@ gulp.task('compile-vendor', function() {
   ])
     .pipe(concat('angular-vendor.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('compile-css', function () {
@@ -52,7 +52,7 @@ gulp.task('compile-css', function () {
     'bower_components/bootstrap/dist/css/bootstrap.css'
   ])
     .pipe(cssmin())
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('inject', ['compile-app', 'compile-vendor', 'compile-css'], function () {
@@ -60,8 +60,7 @@ gulp.task('inject', ['compile-app', 'compile-vendor', 'compile-css'], function (
 
   var sources = gulp.src([
     , 'dist/**/*.js'
-    , 'dist/bootstrap.css'
-    , 'app/**/*.css'
+    , 'dist/**/*.css'
   ], { read: false });
 
   return target.pipe(inject(sources, { read: false, ignorePath: '/dist/', addRootSlash: false }))
