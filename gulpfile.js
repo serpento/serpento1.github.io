@@ -4,21 +4,30 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var inject = require('gulp-inject');
 var clean = require('gulp-clean');
+var templateCache = require('gulp-angular-templatecache');
 
 gulp.task('clean', function () {
   return gulp.src( [
-       './temp'
+       './tmp'
       ,'./dist'
     ]
     , {read: false})
     .pipe(clean());
 });
 
-gulp.task('concat', function() {
+gulp.task('templateCache', ['clean'], function () {
+  return gulp.src('./app/partials/**/*.html')
+    .pipe(templateCache())
+    .pipe(gulp.dest('./tmp'));
+});
+
+
+gulp.task('concat', ['templateCache'], function() {
   return gulp.src([
     './bower_components/angular/angular.js'
     , './bower_components/underscore/underscore.js'
     , './bower_components/angular-route/angular-route.js'
+    , './tmp/**/*.js'
     , './app/**/*.js'
   ])
     .pipe(ngAnnotate())
