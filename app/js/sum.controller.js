@@ -9,7 +9,16 @@ angular.module("sumModule", ['ngRoute'])
         $scope.setUrl = function() {
             if (!$scope.list.summand1 || !$scope.list.summand2) return;
             $location.path('/' + $scope.list.summand1 + '/' + $scope.list.summand2);
-        }
+        };
+
+
+        $http.get('http://api.fixer.io/latest')
+          .then(function successCallback(response) {
+            console.log(response);
+          }, function errorCallback(response) {
+            console.log('Oops!');
+          });
+
     })
 
     .directive('laSum', function() {
