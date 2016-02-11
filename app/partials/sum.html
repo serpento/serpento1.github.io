@@ -4,6 +4,6 @@
     <span>+</span>
     <input ng-model="list.summand2" ng-blur="setUrl()" type="number" placeholder="Second number" />
     <span>=</span>
-    <la-sum list="list" currency-rates="currencyRates"></la-sum>
-
+    <la-sum list="list" currency-rates="currencyRates" code="currencyCode"></la-sum>
+    <select ng-options="code as code for code in currencyCodes()" ng-model="currencyCode"></select>
 </section>

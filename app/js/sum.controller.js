@@ -17,14 +17,21 @@ angular.module("sumModule", ['ngRoute'])
       }, function errorCallback(response) {
         console.log('Oops!');
       });
+
+    $scope.currencyCodes = function() {
+      return Object.keys($scope.currencyRates);
+    };
+
+    $scope.currencyCode = "CAD";
+
   })
 
   .directive('laSum', function() {
     return {
       restrict: 'E',
-      scope:    { list: '=', currencyRates: '=' },
+      scope:    { list: '=', currencyRates: '=', code: '=' },
       template: '<input type="text" readonly="true" value="{{ summarize() }}" />' +
-        '<span>{{ getSumInCurrency("CAD") }}</span> CAD',
+                '<span>{{ getSumInCurrency(code) }}</span>',
       link:     function(scope){
 
         function count() {
