@@ -19,6 +19,7 @@ angular.module("sumModule", ['ngRoute'])
       });
 
     $scope.currencyCodes = function() {
+      if (!$scope.currencyRates) return;
       return Object.keys($scope.currencyRates);
     };
 
