@@ -42,6 +42,7 @@ angular.module("sumModule", ['ngRoute'])
         };
 
         scope.getSumInCurrency = function(currency) {
+          if(!scope.currencyRates) return;
           return count()/scope.currencyRates[currency];
         };
       }
