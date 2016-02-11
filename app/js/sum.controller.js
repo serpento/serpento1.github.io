@@ -1,6 +1,6 @@
 angular.module("sumModule", ['ngRoute'])
 
-    .controller('sumCtrl', function($scope, $routeParams, $location) {
+    .controller('sumCtrl', function($scope, $routeParams, $location, $http) {
         $scope.list = {
             summand1: parseInt($routeParams.summand1) || '',
             summand2: parseInt($routeParams.summand2) || ''
