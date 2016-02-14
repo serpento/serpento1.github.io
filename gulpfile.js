@@ -40,7 +40,7 @@ gulp.task('compile-vendor', function() {
   return gulp.src([
     'bower_components/angular/angular.js'
     , 'bower_components/underscore/underscore.js'
-    , 'bower_components/angular-ui-route/release/angular-ui-route.js'
+    , 'bower_components/angular-ui-router/release/angular-ui-router.js'
   ])
     .pipe(concat('angular-vendor.js'))
     .pipe(uglify())

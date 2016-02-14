@@ -1,9 +1,9 @@
 angular.module("sumModule", ['ui.router'])
 
-  .controller('sumCtrl', function($scope, $routeParams, $location, $http, $state) {
+  .controller('sumCtrl', function($scope, $stateParams, $location, $http, $state) {
     $scope.list = {
-      summand1: parseInt($routeParams.summand1) || '',
-      summand2: parseInt($routeParams.summand2) || ''
+      summand1: parseInt($stateParams.summand1) || '',
+      summand2: parseInt($stateParams.summand2) || ''
     };
 
     $scope.setUrl = function() {
