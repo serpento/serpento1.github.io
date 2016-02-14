@@ -1,6 +1,6 @@
-angular.module("sumModule", ['ngRoute'])
+angular.module("sumModule", ['ui.router'])
 
-  .controller('sumCtrl', function($scope, $routeParams, $location, $http) {
+  .controller('sumCtrl', function($scope, $routeParams, $location, $http, $state) {
     $scope.list = {
       summand1: parseInt($routeParams.summand1) || '',
       summand2: parseInt($routeParams.summand2) || ''
@@ -8,7 +8,10 @@ angular.module("sumModule", ['ngRoute'])
 
     $scope.setUrl = function() {
       if (!$scope.list.summand1 || !$scope.list.summand2) return;
-      $location.path('/' + $scope.list.summand1 + '/' + $scope.list.summand2);
+      $state.go('sum_items', {
+        summand1: $scope.list.summand1,
+        summand2: $scope.list.summand2
+      });
     };
 
     $http.get('http://api.fixer.io/latest')
@@ -57,17 +60,18 @@ angular.module("sumModule", ['ngRoute'])
     };
   })
 
-  .config(['$routeProvider', function($routeProvider) {
-    $routeProvider
-      .when('/', {
+  .config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('sum', {
+        url: '/',
         templateUrl: 'partials/sum.html',
         controller: 'sumCtrl'
       })
-      .when('/:summand1/:summand2', {
+      .state ('sum_items', {
+        url: '/:summand1/:summand2',
         templateUrl: 'partials/sum.html',
         controller: 'sumCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
       });
-  }]);
+
+      $urlRouterProvider.otherwise('/');
+  });
